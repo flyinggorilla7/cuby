@@ -36,3 +36,9 @@ void init_spi(){
 	SSI0_CR1_R |= (1U << 1);
 	
 }
+
+void send_spi(unsigned int data){
+	//wait until ssi is not busy
+	while(SSI0_SR_R & (1U << 1) == 1);
+	SSI0_DR_R = data;
+}

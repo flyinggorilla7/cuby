@@ -26,6 +26,7 @@
 #include <stdint.h>
 #include "inc/hw_nvic.h"
 #include "inc/hw_types.h"
+#include "tm4c123gh6pm.h"
 
 //*****************************************************************************
 //
@@ -36,6 +37,14 @@ void ResetISR(void);
 static void NmiSR(void);
 static void FaultISR(void);
 static void IntDefaultHandler(void);
+
+//Timer count-down handler
+extern void TimerHandler(void){
+	//Clear Interrupt
+	TIMER0_ICR_R = (1U << 0);
+	//Clear timer a enable bit
+	TIMER0_CTL_R &= ~(1U << 0);
+}
 
 //*****************************************************************************
 //
@@ -96,7 +105,7 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // ADC Sequence 2
     IntDefaultHandler,                      // ADC Sequence 3
     IntDefaultHandler,                      // Watchdog timer
-    IntDefaultHandler,                      // Timer 0 subtimer A
+    TimerHandler,                      // Timer 0 subtimer A
     IntDefaultHandler,                      // Timer 0 subtimer B
     IntDefaultHandler,                      // Timer 1 subtimer A
     IntDefaultHandler,                      // Timer 1 subtimer B
