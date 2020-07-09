@@ -1,4 +1,5 @@
 #include "spi.h"
+#include <stdint.h>
 #include "tm4c123gh6pm.h"
 
 //SPI Source File
@@ -39,6 +40,6 @@ void init_spi(){
 
 void send_spi(unsigned int data){
 	//wait until ssi is not busy
-	while(SSI0_SR_R & (1U << 1) == 1);
+	while((SSI0_SR_R & (1U << 1)) == 1);
 	SSI0_DR_R = data;
 }

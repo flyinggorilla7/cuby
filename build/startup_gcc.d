@@ -6,4 +6,4 @@ build/startup_gcc.o: src/startup_gcc.c \
  /usr/include/newlib/sys/features.h /usr/include/newlib/_newlib_version.h \
  /usr/include/newlib/sys/_intsup.h /usr/include/newlib/sys/_stdint.h \
  /home/porkchop/Embedded/tivaware/inc/hw_nvic.h \
- /home/porkchop/Embedded/tivaware/inc/hw_types.h
+ /home/porkchop/Embedded/tivaware/inc/hw_types.h src/tm4c123gh6pm.h
