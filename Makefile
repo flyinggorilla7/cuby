@@ -12,7 +12,7 @@ TARGET = main
 # MCU: part number to build for
 MCU = TM4C123GH6PM
 # SOURCES: list of input source sources
-SOURCES = main.c startup_gcc.c uart.c timer.c spi.c
+SOURCES = main.c startup_gcc.c uart.c timer.c spi.c ili9341.c
 # INCLUDES: list of includes, by default, use Includes directory
 INCLUDES = -IInclude
 # OUTDIR: directory to use for output

@@ -1,10 +1,12 @@
 #include "spi.h"
 #include <stdint.h>
 #include "tm4c123gh6pm.h"
+#include "uart.h"
+
 
 //SPI Source File
 
-void init_spi(){
+void spi_init(){
 	//Enable SSI Module 0
 	SYSCTL_RCGCSSI_R |= (1U << 0);
 	//Enable GPIO Port A
@@ -36,9 +38,11 @@ void init_spi(){
 	//Enable SSI0
 	SSI0_CR1_R |= (1U << 1);
 	
+	printString("SPI Initialized\n\r");
+
 }
 
-void send_spi(unsigned int data){
+void spi_send(unsigned int data){
 	//wait until ssi is not busy
 	while((SSI0_SR_R & (1U << 1)) == 1);
 	SSI0_DR_R = data;

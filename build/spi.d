@@ -4,4 +4,4 @@ build/spi.o: src/spi.c src/spi.h \
  /usr/include/newlib/machine/_default_types.h \
  /usr/include/newlib/sys/features.h /usr/include/newlib/_newlib_version.h \
  /usr/include/newlib/sys/_intsup.h /usr/include/newlib/sys/_stdint.h \
- src/tm4c123gh6pm.h
+ src/tm4c123gh6pm.h src/uart.h
