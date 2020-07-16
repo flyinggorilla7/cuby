@@ -47,3 +47,45 @@ void printChar(char alpha){
 	UART0_DR_R = alpha;
 
 }
+
+void write_uart(unsigned int data){
+	
+	while((UART0_FR_R & (1U << 5)) != 0U);
+	UART0_DR_R = data;
+
+}
+//converts 32 bit number to string
+void uart_print32(unsigned int number){
+	char s[12];
+	int length = 0;
+	do {
+		s[length++] = number % 10 + '0';
+	} while ((number /= 10) > 0);
+	s[length] = '\0';
+	uart_reverse32(s,length-1);
+	printString(s);
+}
+
+void  uart_reverse32(char* s, int length){
+	int i;
+	char c;
+	for (i = 0; i < length; i++,length--){
+		c = s[i];
+		s[i] = s[length];
+		s[length] = c;
+	}
+
+}
+
+void uart_print32_hex(unsigned int number){
+	char s[12];
+	int length = 0;
+	do {
+		s[length++] = number % 16 + '0';
+	} while ((number /= 16) > 0);
+	s[length] = '\0';
+	uart_reverse32(s,length-1);
+	printString(s);
+
+
+}

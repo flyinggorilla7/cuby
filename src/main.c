@@ -61,6 +61,10 @@ int main()
 		for(counter = 0; counter < 1000000; counter++);
 		GPIO_PORTF_DATA_R ^= LED_RED;
 		printString("My Gym Partner Is A Monkey\n\r");
+		uart_print32(150036);
+		printString("\n\r");
+		uart_print32_hex(0x56);
+		printString("\n\r");
 	}
 
 }

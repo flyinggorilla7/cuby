@@ -11,16 +11,20 @@
 
 void ili9341_init(){
 	//Start with a hardware reset
-	printString("Test1\n\r");
-	printString("FunkyMonkey\n\r");
 	GPIO_PORTE_DATA_R ^= GPIO_RESET;
-	printString("Test2\n\r");	
-	timer_delay(200);
-	printString("Test3\n\r");
+	timer_delay(10);
 	GPIO_PORTE_DATA_R ^= GPIO_RESET;
-	printString("Test4\n\r");
+	timer_delay(150);
+	//Software Reset
+	ili9341_write_command(0x01);
+	timer_delay(150);
 
+	//display on command
+	ili9341_write_command(0x29);
+	
+	printString("ili9341 Initialized\n\r");
 }
+
 
 
 
