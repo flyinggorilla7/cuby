@@ -3,5 +3,8 @@
 //Initialize timer
 void timer_init();
 
-//Delay up to 200 ms
+//ms delay
 void timer_delay(unsigned int duration);
+
+//us delay
+void timer_delay_us(unsigned int duration);

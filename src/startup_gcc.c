@@ -41,9 +41,9 @@ static void IntDefaultHandler(void);
 //Timer count-down handler
 extern void TimerHandler(void){
 	//Clear Interrupt
-	TIMER0_ICR_R = (1U << 0);
+	WTIMER0_ICR_R = (1U << 0);
 	//Clear timer a enable bit
-	TIMER0_CTL_R &= ~(1U << 0);
+	WTIMER0_CTL_R &= ~(1U << 0);
 }
 
 //*****************************************************************************

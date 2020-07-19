@@ -11,6 +11,7 @@
 #define LED_BLUE (1U << 2)
 #define LED_GREEN (1U << 3)
 
+#define GPIO_CS (1U << 5)
 #define GPIO_RESET (1U << 4)
 #define GPIO_DC (1U << 0)
 
@@ -30,16 +31,19 @@ void led_init(){
 void gpio_porte_init(){
 	//Enable clock gating to port e
 	SYSCTL_RCGCGPIO_R |= (1U << 4);
+	
+	//Enable AHB
+	SYSCTL_GPIOHBCTL_R |= (1U << 4);
 	//Set direction to output
-	GPIO_PORTE_DIR_R |= GPIO_DC | GPIO_RESET;
+	GPIO_PORTE_AHB_DIR_R |= GPIO_CS | GPIO_DC | GPIO_RESET;
 	//Reset Pin should be pulled high
-	//GPIO_PORTE_PUR_R |= GPIO_RESET;
+	//GPIO_PORTE_AHB_PUR_R |= GPIO_DC;
 	//Make sure Pull down and open drain are disabled	
-	//GPIO_PORTE_PDR_R &= ~GPIO_RESET;
-	//GPIO_PORTE_ODR_R &= ~GPIO_RESET;
+	//GPIO_PORTE_AHB_PDR_R &= ~GPIO_DC;
+	//GPIO_PORTE_AHB_ODR_R &= ~GPIO_DC;
 	//Enable as outputs
-	GPIO_PORTE_DEN_R |= GPIO_DC | GPIO_RESET;
-	GPIO_PORTE_DATA_R |= GPIO_RESET;
+	GPIO_PORTE_AHB_DEN_R |= GPIO_CS | GPIO_DC | GPIO_RESET;
+	GPIO_PORTE_AHB_DATA_R |= GPIO_CS | GPIO_DC | GPIO_RESET;
 }
 
 int main()
@@ -47,24 +51,21 @@ int main()
 	led_init();
 	gpio_porte_init();
 	timer_init();
-	timer_delay(200);
 	uart_init();
-	printString("\n\n\n\n\r");
-	timer_delay(200);	
 	printString("UART Initialized\n\r");
-	timer_delay(200);
 	spi_init();
 	ili9341_init();
 	printString("ILI9341 Initialized\n\r");
 	int volatile counter = 0;
-	for(;;){
+	while(1){
+		GPIO_PORTF_DATA_R ^= LED_RED;
+		timer_delay(1000);
+		printString("Monkey\n\r");
+	}
+	/*for(;;){
 		for(counter = 0; counter < 1000000; counter++);
 		GPIO_PORTF_DATA_R ^= LED_RED;
 		printString("My Gym Partner Is A Monkey\n\r");
-		uart_print32(150036);
-		printString("\n\r");
-		uart_print32_hex(0x56);
-		printString("\n\r");
-	}
+	}*/
 
 }
